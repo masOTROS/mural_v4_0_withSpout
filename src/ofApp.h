@@ -6,6 +6,7 @@
 #include "tree.h"
 #include "ofxAnimatableFloat.h"
 #include "ofxJSON.h"
+#include "ofxSpout.h"
 
 class ofApp : public ofBaseApp{
 
@@ -49,5 +50,9 @@ class ofApp : public ofBaseApp{
 		Node *nextTargetNode;
 
 		bool hideGui;
+
+		// SPOUT stuff
+		ofFbo spoutTexture;
+		ofxSpout::Sender spoutSender;
 };
 

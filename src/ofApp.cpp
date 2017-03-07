@@ -87,6 +87,17 @@ void ofApp::setup(){
 	autoSave = settings["visualizacion"]["guardar automaticamente"].asBool();
 	
 	hideGui = true;
+
+
+	// SPOUT stuff
+
+	spoutTexture.allocate(ofGetWindowWidth(), ofGetWindowHeight(), GL_RGB);
+	spoutTexture.begin();
+	ofClear(0);
+	spoutTexture.end();
+
+	spoutSender.init("textureOut");
+
 }
 
 //--------------------------------------------------------------
@@ -141,15 +152,16 @@ void ofApp::update(){
 			}
 		}
 	}
-}
 
-//--------------------------------------------------------------
-void ofApp::draw() {
-	ofBackground(255,0,0);
-	
+	// SPOUT stuff - BEGIN
+
+	spoutTexture.begin();
+	ofClear(0);
+
+
 	depthOfField.begin();
 	cam.begin(depthOfField.getDimensions());
-	
+
 	tree.draw(cam.getPosition());
 
 	cam.end();
@@ -160,6 +172,20 @@ void ofApp::draw() {
 		tree.gui.draw();
 	}
 	//ofDrawBitmapStringHighlight(ofToString(posAnim.val()), 20,20, ofColor::red);
+
+	spoutTexture.end();
+
+	spoutSender.send(spoutTexture.getTextureReference());
+
+	// SPOUT STUFF - END
+}
+
+//--------------------------------------------------------------
+void ofApp::draw() {
+	ofBackground(25,0,0);
+	
+	// NORMAL DRAWING IN THIS APP�s WINDOW
+	if(!hideGui)spoutTexture.draw(0,0);
 }
 
 //--------------------------------------------------------------
