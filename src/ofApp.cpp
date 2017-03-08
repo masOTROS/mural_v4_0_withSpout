@@ -184,8 +184,14 @@ void ofApp::update(){
 void ofApp::draw() {
 	ofBackground(25,0,0);
 	
-	// NORMAL DRAWING IN THIS APPï¿½s WINDOW
-	if(!hideGui)spoutTexture.draw(0,0);
+	// NORMAL DRAWING IN THIS APP´s WINDOW
+	if (!hideGui) {
+		ofSetColor(255);
+		spoutTexture.draw(0, 0);
+	} else {
+		ofSetColor(255, 255, 0);
+		ofDrawBitmapString("Sending image to Spout. Not drawing on this window.\nPress 'H' for debug", 20,20);
+	}
 }
 
 //--------------------------------------------------------------
